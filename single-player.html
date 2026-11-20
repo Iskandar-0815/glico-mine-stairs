@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f94eb5"><meta name="description" content="地雷格力高：蓝白像素角色与粉色漫画风的猜拳爬阶对决。"><title>地雷格力高！像素猜拳对决</title>
+<style>
+
+:root{--pink:#f94eb5;--hot:#ea319b;--edge:#b52a80;--pink-light:#fff0f8;--ink:#25356b;--muted:#737a98;--blue:#5a79c2;--paper:#fffcff;--shadow:5px 5px 0 #cf358f;}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font:14px/1.6 "Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:linear-gradient(175deg,#ff62cd 0,#ff9cd9 43%,#ffd4eb 100%);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(#be267c35 .8px,transparent .8px),repeating-linear-gradient(135deg,transparent 0 4px,#fff1 4px 5px);background-size:5px 5px,auto;mask-image:linear-gradient(transparent,#000 80%)}
+button{font:inherit;cursor:pointer}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #3756b1;outline-offset:3px}button:disabled{cursor:not-allowed}
+.shell{width:min(1320px,calc(100% - 56px));margin:auto;padding:22px 0 30px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:16px;border-bottom:2px solid #fff7}
+.brand{display:flex;align-items:center;gap:11px;color:white}.brand-mark{display:grid;place-items:center;width:36px;height:36px;border:2px solid white;background:#ffffff19;font:900 25px/1 monospace;box-shadow:3px 3px 0 #d02b91;transform:rotate(-7deg)}
+.brand-title{font-size:13px;font-weight:900;letter-spacing:.15em}.brand-sub{font:9px/1.4 monospace;letter-spacing:.22em;opacity:.8}
+.top-actions{display:flex;gap:9px;align-items:center}.pill{border:2px solid #fff;background:#fff1;color:#fff;box-shadow:3px 3px 0 #cf328f;padding:6px 12px;font-size:11px;font-weight:800;border-radius:0}.pill:hover{background:#fff3}
+.hero-band{display:grid;grid-template-columns:1fr 440px;position:relative;padding:30px 5px 30px;gap:25px;align-items:center}
+.hero-copy{position:relative;z-index:1}.kicker{display:inline-flex;align-items:center;gap:9px;font:10px/1.4 monospace;letter-spacing:.2em;color:#fff;margin:0 0 9px}.kicker:before{content:"";width:20px;height:3px;background:white}
+.hero-band h1{font-weight:1000;font-size:75px;line-height:1.14;letter-spacing:.06em;color:white;margin:0;text-shadow:5px 5px 0 #ce318d,-2px -2px 0 #d6379c,2px -2px 0 #d6379c,-2px 2px 0 #d6379c;filter:drop-shadow(1px 2px 0 #af2c7b25)}
+.title-top{display:block;font-size:43px;line-height:1.1;margin-bottom:6px;letter-spacing:.18em}.title-top i{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:30px;height:30px;border:3px solid white;border-radius:50%;font:900 23px/1 monospace;letter-spacing:0;margin-left:5px;font-style:normal;text-shadow:none;box-shadow:3px 3px 0 #d53598}
+.hero-exclaim{color:#fff;font-style:italic;font-size:1.1em;margin-left:7px}.hero-band p{margin:13px 0 0;font-size:12px;line-height:1.8;color:#752652;max-width:510px}.hero-band p strong{color:#982560;font-weight:900}
+.hero-art{position:relative;display:flex;align-items:end;justify-content:center;min-height:207px;align-self:stretch}
+.hero-art:before{content:"";position:absolute;inset:8px 8px 30px;background:radial-gradient(#fff9 .75px,transparent .75px);background-size:4px 4px;mask-image:radial-gradient(ellipse,#000,transparent 70%)}
+.hero-sprites{display:flex;gap:24px;align-items:end;position:relative;z-index:1;padding:10px 0 23px}
+.pixel-character{display:block;overflow:visible;image-rendering:pixelated;width:105px;height:149px;filter:drop-shadow(3px 3px 0 #b6398122)}
+.hero-sprites .pixel-character:nth-child(1){transform:rotate(-7deg)}.hero-sprites .pixel-character:nth-child(2){align-self:start;margin-top:-9px}.hero-sprites .pixel-character:nth-child(3){transform:rotate(7deg)}
+.hero-sticker{position:absolute;right:-4px;top:1px;background:#fff;color:#d12b8f;transform:rotate(7deg);font-weight:900;font-size:11px;padding:4px 9px;border:2px solid #d82d96;box-shadow:3px 3px 0 #e850ac;z-index:3}
+.art-caption{position:absolute;bottom:5px;left:0;right:0;color:#9f2c70;font:10px monospace;text-align:center;letter-spacing:.25em}
+.spark{position:absolute;color:#fff;font:40px monospace;left:9px;top:48px}.spark.second{left:auto;right:7px;top:74px;font-size:27px}
+.arena-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:2px solid #fff7;padding:12px 2px 14px}.arena-heading h2{font-size:12px;letter-spacing:.15em;margin:0;color:#a22770}.arena-heading p{font:10px monospace;letter-spacing:.12em;margin:0;color:#b1377e}.live-dot{display:inline-block;width:6px;height:6px;background:#fff;margin-right:8px;box-shadow:2px 2px 0 #db398f}
+.arena-layout{display:grid;grid-template-columns:218px minmax(380px,1fr) 284px;grid-template-areas:"roster board control";gap:19px;align-items:start}
+.panel{position:relative;background:var(--paper);border:2px solid var(--edge);box-shadow:var(--shadow);border-radius:1px}
+.panel:before,.panel:after{content:"";position:absolute;z-index:4;width:5px;height:5px;background:var(--pink);border:1px solid var(--edge);pointer-events:none}.panel:before{top:-3px;left:-3px}.panel:after{bottom:-3px;right:-3px}
+.roster{grid-area:roster;display:grid;gap:16px}.character-panel{padding:12px 13px 14px;overflow:hidden;min-width:0}
+.char-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px dashed #dfa3c4}.char-name{font-size:13px;font-weight:900;letter-spacing:.03em}.char-tag{font:9px/1 monospace;letter-spacing:.08em;padding:4px 6px;color:#d43995;border:1px solid #efa9cf;background:#fff4fa}
+.rival .char-tag{color:#4c68a6;border-color:#bdccee;background:#f2f7ff}
+.character-main{display:flex;align-items:center;gap:7px;min-height:142px}.avatar-wrap{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
+.avatar-wrap:before{content:"";position:absolute;width:100px;height:100px;border-radius:50%;background:radial-gradient(#e889c153 1px,transparent 1px);background-size:4px 4px}.rival .avatar-wrap:before{background-image:radial-gradient(#89b3e953 1px,transparent 1px)}
+.avatar-wrap .pixel-character{width:91px;height:129px;position:relative;z-index:1}
+.character-stats{width:57px;align-self:center}.stat-row{font-size:9px;color:#8a7095;text-align:center}.position-number{display:block;font:900 37px/1.15 "Consolas",monospace;letter-spacing:-.07em;color:#d83193;margin:4px 0}.rival .position-number{color:#5e78b7}
+.stat-goal{color:#b3a9b8;font:10px monospace}.char-quote{font-size:10px;color:#a16892;text-align:center;margin:0 0 11px;line-height:1.5}.rival .char-quote{color:#7882a3}
+.meter{height:7px;border:1px solid #e6bbd3;background:#f9e5f0;overflow:hidden}.meter span{display:block;height:100%;background:repeating-linear-gradient(90deg,#f75fb4 0 6px,#ff9cd4 6px 7px);transition:width .3s}.rival .meter{background:#e8effb;border-color:#c6d3ed}.rival .meter span{background:repeating-linear-gradient(90deg,#6d8ec7 0 6px,#aec6ed 6px 7px)}
+.mine-note{font-size:10px;text-align:center;color:#97809c;margin-top:9px}.mine-note strong{color:#c23888}
+.board-column{grid-area:board;min-width:0}.board-card{padding:17px 19px 16px}
+.board-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.board-head strong{font-weight:900;font-size:15px;letter-spacing:.09em}.board-head span{font:9px/1.3 monospace;color:#a58a9e}
+.board-legend{display:flex;align-items:center;justify-content:space-between;background:#fff3f9;border:1px solid #edc3db;padding:6px 10px;margin-bottom:9px;font-size:9px;color:#b05191}
+.legend-key{display:inline-flex;align-items:center;gap:5px;font-weight:700}.legend-dot{width:8px;height:8px;display:inline-block;background:#ec67b1;border:1px solid #c44390}.legend-key.rin{color:#627fba}.rin .legend-dot{background:#91ace0;border-color:#5573af}
+.board-frame{padding:5px;border:2px solid #df8abb;background:#fce5f2;position:relative}
+.ladder-scroll{height:400px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#e27bb3 #fce5f2;position:relative;overscroll-behavior:contain;scroll-behavior:smooth}
+.rung{height:30px;display:grid;grid-template-columns:35px 1fr 30px;align-items:center;border-bottom:1px solid #dfb4cd;position:relative;background:#fffafd}
+.rung:nth-child(2n){background:#fff1f8}
+.rung-num{text-align:center;color:#9f7198;font:10px "Consolas",monospace;font-weight:700}
+.rung-center{height:100%;position:relative;background:linear-gradient(90deg,transparent 12%,#f4dbe8 12% 13%,transparent 13% 87%,#f4dbe8 87% 88%,transparent 88%)}
+.rung-center:before{content:"";position:absolute;left:12%;right:12%;bottom:5px;height:4px;background:#eac3d9;border-bottom:2px solid #d7a7c6}
+.rung[data-level="46"]{background:#f38bc5}.rung[data-level="0"]{background:#dce7fd}.rung[data-level="46"] .rung-num{color:white}.rung[data-level="0"] .rung-num{color:#526caa}
+.rung-selectable{cursor:pointer}.rung-selectable:hover,.rung-selectable:focus-visible{background:#ffcee9;outline:2px solid #ec4ea8;outline-offset:-2px}
+.rung-selectable:hover:after{content:"＋";position:absolute;left:calc(50% - 8px);color:#ce3c8d;font-weight:900;font-size:20px;top:-1px}
+.token{position:absolute;top:50%;transform:translateY(-57%);z-index:3;font-size:0;width:22px;height:31px;background-position:center;background-repeat:no-repeat;background-size:contain;image-rendering:pixelated}
+.user-token{left:24%;background-image:var(--user-sprite)}.ai-token{right:24%;background-image:var(--ai-sprite)}
+.rung-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:0;width:16px;height:16px;z-index:2;background:radial-gradient(circle at 40% 35%,#8b78a5 0 15%,#473e74 17% 70%,transparent 72%);border-bottom:2px solid #2d2a54}
+.rung-mark:after{content:"";position:absolute;width:5px;height:5px;border:2px solid #d773ba;border-left:0;border-bottom:0;right:0;top:-3px}
+.ladder-hint{font-size:10px;color:#a26b91;text-align:center;line-height:1.6;margin:10px 0}
+.minimap{display:grid;grid-template-columns:repeat(47,minmax(0,1fr));gap:2px}
+.mini-cell{height:7px;background:#efd2e3}.mini-cell.user{background:#ed4fa8}.mini-cell.ai{background:#6586c4}.mini-cell.user.ai{background:linear-gradient(90deg,#ed4fa8 50%,#6586c4 50%)}
+.mini-labels{display:flex;justify-content:space-between;font:8px/1.7 monospace;color:#ad8da4;margin-top:4px}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.hud-chip{text-align:center;font-size:9px;color:#b17b9c;border:1px solid #edc6dc;background:#fff4fa;padding:7px 3px}
+.hud-chip strong{display:block;font:900 19px/1.25 "Consolas",monospace;color:#a93782;margin-top:2px}
+.control-column{grid-area:control;min-width:0;display:grid;gap:16px}.play-card{padding:16px 15px 14px}
+.section-tab{font:9px/1 monospace;letter-spacing:.16em;color:#b5779f;border-bottom:1px dashed #e6b1d0;padding-bottom:11px;margin-bottom:14px;display:flex;justify-content:space-between}
+.play-status{display:flex;flex-direction:column;gap:10px}.status-icon{font-size:26px;line-height:1;width:46px;height:46px;border:2px solid #ed9fcd;background:#fff0f8;display:grid;place-items:center;box-shadow:3px 3px 0 #f5c8e3}
+.status-text strong{display:block;font-size:17px;font-weight:900;line-height:1.5;margin:0 0 7px;color:#bf3288}
+.status-text span{font-size:11px;line-height:1.9;color:#8c7191;display:block}
+.action-area{margin-top:17px}.action-caption{font-size:10px;color:#9e7f99;line-height:1.7;margin-bottom:9px}
+.hand-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.hand-btn{min-width:0;border:2px solid #ce4795;box-shadow:2px 3px 0 #e4a2c7;background:#fff7fc;color:#b53486;padding:12px 1px 8px;transition:transform .1s,box-shadow .1s}
+.hand-btn:hover{background:#ffe3f3;transform:translateY(-2px);box-shadow:2px 5px 0 #d991ba}.hand-emoji{display:block;font-size:24px;line-height:1.2}.hand-btn strong{font-size:11px;display:block;margin:7px 0 3px}
+.hand-btn small{display:block;font-size:8px;color:#ab75a0;white-space:nowrap}.hand-btn:disabled{background:#f5edf3;border-color:#dac5d4;box-shadow:2px 3px 0 #e9dce5;color:#bba9b7;transform:none;opacity:.6}
+.advance-btn{border:2px solid #ce4795;box-shadow:3px 3px 0 #e2a0c5;background:#fff0fa;color:#bd3287;font-weight:900;font-size:12px;grid-column:span 1;padding:12px 3px;min-width:0}
+.hand-row:has(.advance-btn){grid-template-columns:1fr 1fr}.advance-btn em{font:900 21px/1 monospace;display:block;font-style:normal;margin-bottom:7px}.advance-btn:hover{background:#ffd7ee}
+.round-toast{font-size:11px;line-height:1.8;color:#bf3c8e;margin-top:14px;min-height:20px;border-top:1px dashed #ebc9df;padding-top:10px}
+.goal-card{padding:14px 15px;background:#fff8fd;display:flex;gap:12px;align-items:center}.goal-number{font:900 39px/1 "Consolas",monospace;letter-spacing:-.08em;color:#e64ea4}.goal-copy strong{font-size:12px;display:block;color:#bd3789}.goal-copy span{font-size:10px;color:#a07598;line-height:1.7;display:block}
+.side-decoration{font:9px monospace;letter-spacing:.15em;color:#b9438a;display:flex;align-items:center;gap:7px;padding:2px 3px}.side-decoration:before{content:"";height:4px;flex:1;background:repeating-linear-gradient(90deg,#c93d9160 0 4px,transparent 4px 8px)}
+.bottom-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:19px;margin-top:21px}.rules-card,.log-card{padding:17px 19px}
+.card-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px}.card-heading strong{font-size:13px;font-weight:900;letter-spacing:.05em}.card-heading span{font-size:9px;color:#b587a6}
+.rules-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rule{display:flex;gap:9px;align-items:flex-start;font-size:10px;color:#8c6e8f;line-height:1.8;background:#fff3fa;padding:9px 10px;border-left:2px solid #e99ec7}.rule b{font:900 13px/1.5 "Consolas",monospace;color:#d04a98}.rule strong{color:#a43b82}
+.log-list{list-style:none;margin:0;padding:0;max-height:159px;overflow:auto;scrollbar-width:thin;scrollbar-color:#e7b6d2 transparent}.log-list li{font-size:10px;line-height:1.8;color:#9d7f99;padding:7px 0;border-bottom:1px dashed #efd4e4}.log-list li:first-child{color:#af4589}.log-list .time{color:#ca9cbc;font:9px monospace;margin-right:7px}.log-list .empty{color:#bc9bb3;border:0;padding-top:25px;text-align:center}
+.footnote{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#bc4c8d;font:9px/1.7 monospace;letter-spacing:.12em;padding:22px 1px 0}.footer-checkers{height:12px;flex:1;max-width:230px;background:conic-gradient(#ca4c984a 25%,transparent 0 50%,#ca4c984a 0 75%,transparent 0) 0 0/8px 8px;mask-image:linear-gradient(90deg,transparent,#000)}
+.modal-backdrop{position:fixed;inset:0;background:#81265d88;z-index:20;display:none;place-items:center;padding:22px;backdrop-filter:blur(4px)}.modal-backdrop.show{display:grid}
+.modal{width:min(450px,100%);border:3px solid #be2c85;background:#fff9fd;box-shadow:8px 8px 0 #a72c76;padding:29px;text-align:center;position:relative}.modal:before{content:"";height:8px;position:absolute;top:0;left:0;right:0;background:repeating-linear-gradient(90deg,#f68ec9 0 8px,#fff0f9 8px 16px)}
+.modal-stamp{width:62px;height:62px;border:2px solid #e38dbc;box-shadow:4px 4px 0 #f4c4de;display:grid;place-items:center;font-size:31px;margin:0 auto 19px;background:#fff0f8}
+.modal h2{font-size:23px;line-height:1.5;color:#b63286;margin:0 0 9px}.modal p{font-size:12px;line-height:1.9;color:#8f7190;margin:0 0 21px}.modal-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.primary-btn,.secondary-btn{padding:10px 16px;font-size:12px;font-weight:900;border:2px solid #c33188;box-shadow:3px 3px 0 #e4a1c7;border-radius:0}.primary-btn{background:#eb51a9;color:#fff}.secondary-btn{background:#fff2fa;color:#bb468d}.primary-btn:hover{background:#d63b96}
+@media(min-width:1400px){.hero-band{padding-top:34px;padding-bottom:34px}.hero-band h1{font-size:84px}.hero-sprites .pixel-character{width:114px;height:162px}}
+@media(max-width:1120px){.shell{width:calc(100% - 38px)}.arena-layout{grid-template-columns:186px minmax(320px,1fr) 251px;gap:14px}.board-card{padding:15px 13px}.character-panel{padding:11px 10px}.character-stats{width:48px}.avatar-wrap .pixel-character{width:79px;height:121px}.hero-band{grid-template-columns:1fr 360px}.hero-band h1{font-size:67px}.hero-sprites{gap:12px}.hero-sprites .pixel-character{width:95px;height:135px}.play-card{padding:14px 12px}.hand-btn small{font-size:7px}}
+@media(max-width:960px){.arena-layout{grid-template-columns:minmax(300px,1fr) 280px;grid-template-areas:"board control" "roster roster"}.roster{grid-template-columns:1fr 1fr}.character-main{min-height:115px}.avatar-wrap{max-width:130px}.character-panel{padding:13px 17px}.character-stats{width:auto;flex:1;display:flex;align-items:center;justify-content:center;gap:10px}.char-quote{position:absolute;right:15px;bottom:54px;font-size:9px;max-width:140px}.position-number{font-size:40px}.stat-goal{display:none}.hero-band{grid-template-columns:1fr 300px;gap:10px}.hero-band h1{font-size:61px}.title-top{font-size:36px}.hero-sprites .pixel-character{width:80px;height:120px}.hero-art{min-height:180px}.hero-sticker{right:0}.hero-band p{font-size:11px}.bottom-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.shell{width:calc(100% - 26px);padding-top:14px}.topbar{gap:8px;padding-bottom:11px}.brand-mark{width:30px;height:30px;font-size:20px}.brand-title{font-size:11px}.brand-sub{font-size:8px;letter-spacing:.12em}.top-actions{gap:7px}.pill{padding:5px 7px;font-size:9px}.hero-band{grid-template-columns:1fr;padding:23px 4px 21px;gap:0;min-height:310px;align-items:start}.hero-band h1{font-size:64px;letter-spacing:.02em;max-width:310px}.title-top{font-size:35px;margin-bottom:7px}.hero-copy{z-index:2}.kicker{font-size:8px;letter-spacing:.1em;max-width:74%}.hero-band p{max-width:67%;font-size:10px;line-height:1.8;margin-top:10px}.hero-art{position:absolute;right:-4px;bottom:15px;width:104px;min-height:125px;height:125px;z-index:1}.hero-sprites{gap:0;padding-bottom:0}.hero-sprites .pixel-character{width:88px;height:125px;transform:rotate(6deg)!important}.hero-sprites .pixel-character:nth-child(1),.hero-sprites .pixel-character:nth-child(2){display:none}.hero-sticker{top:1px;right:1px;font-size:8px;padding:2px 5px}.art-caption,.spark{display:none}.arena-heading{padding:11px 0}.arena-heading h2{font-size:11px}.arena-heading p{font-size:8px}.arena-layout{grid-template-columns:1fr;grid-template-areas:"board" "control" "roster";gap:16px}.board-card{padding:14px 13px}.board-head strong{font-size:14px}.board-head span{font-size:8px}.ladder-scroll{height:300px}.rung{height:29px}.hud-chip{font-size:9px}.hud-chip strong{font-size:18px}.ladder-hint{font-size:9px}.play-card{padding:16px}.play-status{display:grid;grid-template-columns:44px 1fr;gap:12px}.status-text strong{font-size:15px}.status-text span{font-size:11px}.status-icon{font-size:23px;width:41px;height:41px}.hand-btn{padding:10px 2px 9px}.hand-btn .hand-emoji{font-size:26px}.hand-btn strong{font-size:12px;display:inline-block;margin:5px}.hand-btn small{font-size:9px}.action-caption{font-size:10px}.round-toast{font-size:10px}.goal-card,.side-decoration{display:none}.roster{gap:13px}.character-panel{padding:10px}.character-main{display:block;min-height:0}.avatar-wrap{max-width:none}.avatar-wrap .pixel-character{width:75px;height:106px}.character-stats{display:block}.stat-row{display:flex;align-items:center;justify-content:center;gap:12px}.position-number{font-size:24px;line-height:1}.char-quote{position:static;margin:7px 0;font-size:8px;max-width:none;white-space:nowrap;letter-spacing:-.03em}.char-top{padding-bottom:7px}.char-name{font-size:11px}.char-tag{font-size:8px;padding:3px 4px}.mine-note{font-size:9px}.bottom-grid{margin-top:18px;gap:16px}.rules-card,.log-card{padding:14px}.rules-list{gap:8px}.rule{font-size:9px;padding:8px;gap:6px}.rule b{font-size:11px}.card-heading strong{font-size:12px}.footnote{font-size:8px;letter-spacing:0;padding-top:20px}.footer-checkers{max-width:50px}}
+@media(max-width:360px){.hero-band h1{font-size:56px}.hero-art{right:-9px;width:102px}.hero-sprites .pixel-character{width:96px;height:140px}.rules-list{grid-template-columns:1fr}.brand-sub{display:none}.board-head span{font-size:7px}}
+@media(prefers-reduced-motion:reduce){html,.ladder-scroll{scroll-behavior:auto}.meter span,.hand-btn{transition:none}}
+
+:root{--user-sprite:url("data:image/svg+xml,%3Csvg%20class%3D%22pixel-character%22%20viewBox%3D%220%200%2048%2068%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%20shape-rendering%3D%22crispEdges%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2265%22%20rx%3D%2217%22%20ry%3D%222%22%20fill%3D%22%23d5419b%22%20opacity%3D%22.16%22%2F%3E%3Cpath%20d%3D%22M24%206h-3V3h-5V1h7v2h3v5h-2z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M15%207h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M16%209h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M10%2029h3v13h3v3h-4v-5h-2zM34%2023h3v17h-3v6h-4v-3h2V31h2z%22%20fill%3D%22%23b4c6ef%22%2F%3E%3Cpath%20d%3D%22M15%2017h19v18h-3v3H18v-3h-3z%22%20fill%3D%22%23f5f9ff%22%2F%3E%3Cpath%20d%3D%22M13%2017h4v9h-4zM33%2017h3v10h-3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M14%2015h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M15%2019h3v6h-3zM20%2016h2v6h-2zM26%2015h2v5h-2zM31%2017h2v5h-2z%22%20fill%3D%22%23a5b8e3%22%2F%3E%3Cpath%20d%3D%22M17%2025h4v5h-4z%22%20fill%3D%22%23526bcb%22%2F%3E%3Cpath%20d%3D%22M28%2026h5v2h-5zM26%2027h3v2h-3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M21%2033h7v2h-7z%22%20fill%3D%22%233c4d8d%22%2F%3E%3Cpath%20d%3D%22M15%2032h4v2h-4zM32%2032h3v2h-3z%22%20fill%3D%22%23e8c4e9%22%2F%3E%3Cpath%20d%3D%22M17%2038h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M18%2039h13v3h3v6H15v-6h3zM11%2046h3v4h-3zM35%2046h2v4h-2z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M17%2039h3v3h8v-3h3v5h-5v4h-4v-4h-5z%22%20fill%3D%22%237b97d9%22%2F%3E%3Cpath%20d%3D%22M22%2042h5v3h-5z%22%20fill%3D%22%23344d99%22%2F%3E%3Cpath%20d%3D%22M16%2048h17v4h2v6H13v-6h3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M17%2049h4v7h-5v-4h1zM24%2049h4v7h-4zM31%2050h1v4h2v2h-3z%22%20fill%3D%22%23e2edff%22%2F%3E%3Cpath%20d%3D%22M15%2052h18v2H15z%22%20fill%3D%22%23819bd3%22%2F%3E%3Cpath%20d%3D%22M16%2057h7v6h-7zM27%2057h7v6h-7z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M18%2057h3v3h-3zM29%2057h3v3h-3z%22%20fill%3D%22%23c4d8fa%22%2F%3E%3Cpath%20d%3D%22M15%2061h8v5H12v-3h3zM27%2061h7v2h3v3H27z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M15%2062h6v2h-7v1h-1v-2h2zM29%2062h4v2h3v1h-7z%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M16%2064h5v1h-5zM29%2064h4v1h-4z%22%20fill%3D%22%238aa9d4%22%2F%3E%3C%2Fsvg%3E");--ai-sprite:url("data:image/svg+xml,%3Csvg%20class%3D%22pixel-character%22%20viewBox%3D%220%200%2048%2068%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%20shape-rendering%3D%22crispEdges%22%3E%3Cellipse%20cx%3D%2224%22%20cy%3D%2265%22%20rx%3D%2217%22%20ry%3D%222%22%20fill%3D%22%23d5419b%22%20opacity%3D%22.16%22%2F%3E%3Cpath%20d%3D%22M24%206h-3V3h-5V1h7v2h3v5h-2z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M15%207h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M16%209h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M10%2029h3v13h3v3h-4v-5h-2zM34%2023h3v17h-3v6h-4v-3h2V31h2z%22%20fill%3D%22%23b4c6ef%22%2F%3E%3Cpath%20d%3D%22M15%2017h19v18h-3v3H18v-3h-3z%22%20fill%3D%22%23f5f9ff%22%2F%3E%3Cpath%20d%3D%22M13%2017h4v9h-4zM33%2017h3v10h-3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M14%2015h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M15%2019h3v6h-3zM20%2016h2v6h-2zM26%2015h2v5h-2zM31%2017h2v5h-2z%22%20fill%3D%22%23a5b8e3%22%2F%3E%3Cpath%20d%3D%22M17%2025h5v6h-5zM28%2025h5v6h-5z%22%20fill%3D%22%234e67b9%22%2F%3E%3Cpath%20d%3D%22M18%2025h2v2h-2zM29%2025h2v2h-2z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M22%2034h6v1h-6z%22%20fill%3D%22%23344d99%22%2F%3E%3Cpath%20d%3D%22M15%2032h4v2h-4zM32%2032h3v2h-3z%22%20fill%3D%22%23e8c4e9%22%2F%3E%3Cpath%20d%3D%22M17%2038h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M18%2039h13v3h3v6H15v-6h3zM11%2046h3v4h-3zM35%2046h2v4h-2z%22%20fill%3D%22%23f8fcff%22%2F%3E%3Cpath%20d%3D%22M17%2039h3v3h8v-3h3v5h-5v4h-4v-4h-5z%22%20fill%3D%22%237b97d9%22%2F%3E%3Cpath%20d%3D%22M22%2042h5v3h-5z%22%20fill%3D%22%23344d99%22%2F%3E%3Cpath%20d%3D%22M16%2048h17v4h2v6H13v-6h3z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M17%2049h4v7h-5v-4h1zM24%2049h4v7h-4zM31%2050h1v4h2v2h-3z%22%20fill%3D%22%23e2edff%22%2F%3E%3Cpath%20d%3D%22M15%2052h18v2H15z%22%20fill%3D%22%23819bd3%22%2F%3E%3Cpath%20d%3D%22M16%2057h7v6h-7zM27%2057h7v6h-7z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M18%2057h3v3h-3zM29%2057h3v3h-3z%22%20fill%3D%22%23c4d8fa%22%2F%3E%3Cpath%20d%3D%22M15%2061h8v5H12v-3h3zM27%2061h7v2h3v3H27z%22%20fill%3D%22%2327396c%22%2F%3E%3Cpath%20d%3D%22M15%2062h6v2h-7v1h-1v-2h2zM29%2062h4v2h3v1h-7z%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M16%2064h5v1h-5zM29%2064h4v1h-4z%22%20fill%3D%22%238aa9d4%22%2F%3E%3C%2Fsvg%3E")}
+
+/* Guided setup and shared blue-white pixel icons. */
+[hidden]{display:none!important}
+.hud{grid-template-columns:repeat(2,minmax(0,1fr))}
+.game-flow{display:grid;grid-template-columns:1fr 1fr;gap:13px;list-style:none;padding:0;margin:0 0 18px;position:relative}
+.game-flow:before{content:"→";position:absolute;left:50%;top:9px;transform:translateX(-50%);font-size:12px;color:#b997b2}
+.flow-step{display:flex;align-items:center;gap:6px;padding:8px 5px;border:1px solid #ead7e4;background:#fcf7fb;color:#b5a0b2;min-width:0}
+.flow-number{font:900 14px/1 monospace;flex:none;padding:4px 1px;letter-spacing:-.05em}
+.flow-copy{font-size:9px;font-weight:800;line-height:1.5;white-space:nowrap}
+.flow-copy small{display:block;font-size:8px;line-height:1.6;font-weight:400;margin-top:3px}
+.flow-step.is-active{border-color:#db6eac;background:#fff0f8;color:#bd3488;box-shadow:2px 2px 0 #f3c6e0}
+.flow-step.is-complete{color:#5c78b0;border-color:#c5d4ee;background:#f2f7ff}
+.flow-step.is-complete .flow-number{font-size:0}
+.flow-step.is-complete .flow-number:before{content:"✓";font-size:15px}
+.mine-setup{margin-top:17px;padding-top:13px;border-top:1px dashed #e8bdd6}
+.setup-progress{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;line-height:1.6}
+.setup-progress strong{font-size:11px;color:#a73d83}
+.setup-progress span{font:10px monospace;color:#ac7899}
+.mine-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.mine-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:85px;border:1px dashed #d7b6ce;background:#fcf5fa;color:#c5abc0;padding:8px 2px}
+.mine-slot svg{width:23px;height:23px;opacity:.4}
+.mine-slot strong{font-size:11px;line-height:1.4;color:#b199ae}
+.mine-slot small{font-size:8px}
+.mine-slot.is-filled{border:1px solid #9eb5de;background:#f0f6ff;color:#627fb7;box-shadow:2px 2px 0 #e0e9f8}
+.mine-slot.is-filled strong{color:#4c66a0}
+.mine-slot.is-filled svg{opacity:1}
+.setup-next-note{font-size:10px;line-height:1.9;color:#a47a99;margin:13px 0 0}
+.setup-next-note span{display:block;font-size:12px;color:#c03b8a;font-weight:900;margin-top:3px}
+.board-setup-guide{margin-bottom:10px;border:1px solid #e794c2;background:#fff1f9;padding:8px 10px;color:#b14188;font-size:10px;line-height:1.7}
+.board-setup-guide strong{display:block;font-size:11px}
+.board-setup-guide span{color:#ab7c9e;font-size:9px}
+.rung-selectable:after{content:"＋";position:absolute;right:9px;left:auto;top:3px;color:#d58cb9;font:14px/1.5 monospace}
+.rung-selectable:hover:after{left:auto;right:9px;top:3px;font-size:14px;color:#b82f83}
+.rung:has(.rung-mark){background:#f9e3f1}
+.hand-emoji{display:flex;align-items:center;justify-content:center}
+.hand-emoji svg{display:block;width:31px;height:31px}
+.hand-btn{color:#526da8;background:#f7faff;border-color:#849dcd;box-shadow:2px 3px 0 #c6d4ef}
+.hand-btn:hover{background:#eaf2ff;border-color:#526eaa;box-shadow:2px 5px 0 #b6c9e9}
+.hand-btn strong{color:#4d69a3}
+.hand-btn small{color:#8a9fc3}
+.status-icon svg{width:29px;height:29px;display:block}
+.action-area:has(.hand-row[hidden]){margin-top:0}
+.action-area:has(.hand-row[hidden]) .action-caption{margin-top:12px}
+@media(max-width:1120px){.game-flow{gap:12px}.flow-copy{font-size:8px}.flow-number{font-size:12px}.flow-step{gap:4px;padding:7px 3px}}
+@media(max-width:960px){.flow-copy{font-size:9px}.flow-step{gap:6px;padding:8px 5px}}
+@media(max-width:680px){.game-flow{gap:22px;margin-bottom:16px}.flow-copy{font-size:11px}.flow-copy small{font-size:9px}.flow-number{font-size:17px;padding:3px}.flow-step{padding:8px 10px;gap:9px}.game-flow:before{top:13px;font-size:14px}.setup-progress{flex-direction:row;justify-content:space-between;gap:8px}.setup-progress strong{font-size:10px}.mine-slot{min-height:78px}.mine-slot svg{width:24px;height:24px}.setup-next-note span{display:inline;margin-left:3px;font-size:11px}.board-setup-guide{font-size:10px}.hand-emoji svg{width:34px;height:34px}}
+@media(max-width:360px){.flow-step{padding:7px 5px;gap:4px}.flow-copy{font-size:10px}.flow-number{font-size:15px}}
+</style></head><body>
+
+<div class="shell">
+<header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">ϟ</div><div><div class="brand-title">GLICO GAME CLUB</div><div class="brand-sub">じゃんけん、ぽん！</div></div></div><div class="top-actions"><button class="pill" id="soundToggle" type="button" aria-pressed="false">♫ 音效：关</button></div></header>
+<main>
+<section class="hero-band" aria-label="地雷格力高">
+ <div class="hero-copy"><div class="kicker">ROCK · PAPER · SCISSORS / STAIR BATTLE</div><h1><span class="title-top">地雷<i aria-hidden="true">ϟ</i></span>格力高<span class="hero-exclaim">!</span></h1><p>喊出 <strong>「格・力・高！」</strong>，猜拳、躲雷、向上冲。<br>通往第 46 级的路，就从这一次出拳开始。</p></div>
+ <div class="hero-art" aria-hidden="true"><span class="hero-sticker">GAME START ↗</span><span class="spark">✧</span><span class="spark second">＋</span><div class="hero-sprites"><svg class="pixel-character" viewBox="0 0 48 68" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓝白像素角色" shape-rendering="crispEdges"><ellipse cx="24" cy="65" rx="17" ry="2" fill="#d5419b" opacity=".16"/><path d="M24 6h-3V3h-5V1h7v2h3v5h-2z" fill="#27396c"/><path d="M15 7h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z" fill="#27396c"/><path d="M16 9h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z" fill="#f8fcff"/><path d="M10 29h3v13h3v3h-4v-5h-2zM34 23h3v17h-3v6h-4v-3h2V31h2z" fill="#b4c6ef"/><path d="M15 17h19v18h-3v3H18v-3h-3z" fill="#f5f9ff"/><path d="M13 17h4v9h-4zM33 17h3v10h-3z" fill="#27396c"/><path d="M14 15h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z" fill="#f8fcff"/><path d="M15 19h3v6h-3zM20 16h2v6h-2zM26 15h2v5h-2zM31 17h2v5h-2z" fill="#a5b8e3"/><path d="M17 25h4v5h-4z" fill="#526bcb"/><path d="M28 26h5v2h-5zM26 27h3v2h-3z" fill="#27396c"/><path d="M21 33h7v2h-7z" fill="#3c4d8d"/><path d="M15 32h4v2h-4zM32 32h3v2h-3z" fill="#e8c4e9"/><path d="M17 38h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z" fill="#27396c"/><path d="M18 39h13v3h3v6H15v-6h3zM11 46h3v4h-3zM35 46h2v4h-2z" fill="#f8fcff"/><path d="M17 39h3v3h8v-3h3v5h-5v4h-4v-4h-5z" fill="#7b97d9"/><path d="M22 42h5v3h-5z" fill="#344d99"/><path d="M16 48h17v4h2v6H13v-6h3z" fill="#27396c"/><path d="M17 49h4v7h-5v-4h1zM24 49h4v7h-4zM31 50h1v4h2v2h-3z" fill="#e2edff"/><path d="M15 52h18v2H15z" fill="#819bd3"/><path d="M16 57h7v6h-7zM27 57h7v6h-7z" fill="#27396c"/><path d="M18 57h3v3h-3zM29 57h3v3h-3z" fill="#c4d8fa"/><path d="M15 61h8v5H12v-3h3zM27 61h7v2h3v3H27z" fill="#27396c"/><path d="M15 62h6v2h-7v1h-1v-2h2zM29 62h4v2h3v1h-7z" fill="#fff"/><path d="M16 64h5v1h-5zM29 64h4v1h-4z" fill="#8aa9d4"/></svg><svg class="pixel-character" viewBox="0 0 48 68" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓝白像素角色" shape-rendering="crispEdges"><ellipse cx="24" cy="65" rx="17" ry="2" fill="#d5419b" opacity=".16"/><path d="M24 6h-3V3h-5V1h7v2h3v5h-2z" fill="#27396c"/><path d="M15 7h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z" fill="#27396c"/><path d="M16 9h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z" fill="#f8fcff"/><path d="M10 29h3v13h3v3h-4v-5h-2zM34 23h3v17h-3v6h-4v-3h2V31h2z" fill="#b4c6ef"/><path d="M15 17h19v18h-3v3H18v-3h-3z" fill="#f5f9ff"/><path d="M13 17h4v9h-4zM33 17h3v10h-3z" fill="#27396c"/><path d="M14 15h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z" fill="#f8fcff"/><path d="M15 19h3v6h-3zM20 16h2v6h-2zM26 15h2v5h-2zM31 17h2v5h-2z" fill="#a5b8e3"/><path d="M17 25h5v6h-5zM28 25h5v6h-5z" fill="#4e67b9"/><path d="M18 25h2v2h-2zM29 25h2v2h-2z" fill="white"/><path d="M22 34h6v1h-6z" fill="#344d99"/><path d="M15 32h4v2h-4zM32 32h3v2h-3z" fill="#e8c4e9"/><path d="M17 38h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z" fill="#27396c"/><path d="M18 39h13v3h3v6H15v-6h3zM11 46h3v4h-3zM35 46h2v4h-2z" fill="#f8fcff"/><path d="M17 39h3v3h8v-3h3v5h-5v4h-4v-4h-5z" fill="#7b97d9"/><path d="M22 42h5v3h-5z" fill="#344d99"/><path d="M16 48h17v4h2v6H13v-6h3z" fill="#27396c"/><path d="M17 49h4v7h-5v-4h1zM24 49h4v7h-4zM31 50h1v4h2v2h-3z" fill="#e2edff"/><path d="M15 52h18v2H15z" fill="#819bd3"/><path d="M16 57h7v6h-7zM27 57h7v6h-7z" fill="#27396c"/><path d="M18 57h3v3h-3zM29 57h3v3h-3z" fill="#c4d8fa"/><path d="M15 61h8v5H12v-3h3zM27 61h7v2h3v3H27z" fill="#27396c"/><path d="M15 62h6v2h-7v1h-1v-2h2zM29 62h4v2h3v1h-7z" fill="#fff"/><path d="M16 64h5v1h-5zM29 64h4v1h-4z" fill="#8aa9d4"/></svg><svg class="pixel-character" viewBox="0 0 48 68" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓝白像素角色" shape-rendering="crispEdges"><ellipse cx="24" cy="65" rx="17" ry="2" fill="#d5419b" opacity=".16"/><path d="M24 6h-3V3h-5V1h7v2h3v5h-2z" fill="#27396c"/><path d="M15 7h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z" fill="#27396c"/><path d="M16 9h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z" fill="#f8fcff"/><path d="M10 29h3v13h3v3h-4v-5h-2zM34 23h3v17h-3v6h-4v-3h2V31h2z" fill="#b4c6ef"/><path d="M15 17h19v18h-3v3H18v-3h-3z" fill="#f5f9ff"/><path d="M13 17h4v9h-4zM33 17h3v10h-3z" fill="#27396c"/><path d="M14 15h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z" fill="#f8fcff"/><path d="M15 19h3v6h-3zM20 16h2v6h-2zM26 15h2v5h-2zM31 17h2v5h-2z" fill="#a5b8e3"/><path d="M16 25h6v2h-6zM28 25h6v2h-6zM20 31h10v5H20z" fill="#344d99"/><path d="M22 35h6v2h-6z" fill="#839ddd"/><path d="M15 32h4v2h-4zM32 32h3v2h-3z" fill="#e8c4e9"/><path d="M17 38h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z" fill="#27396c"/><path d="M18 39h13v3h3v6H15v-6h3zM11 46h3v4h-3zM35 46h2v4h-2z" fill="#f8fcff"/><path d="M17 39h3v3h8v-3h3v5h-5v4h-4v-4h-5z" fill="#7b97d9"/><path d="M22 42h5v3h-5z" fill="#344d99"/><path d="M16 48h17v4h2v6H13v-6h3z" fill="#27396c"/><path d="M17 49h4v7h-5v-4h1zM24 49h4v7h-4zM31 50h1v4h2v2h-3z" fill="#e2edff"/><path d="M15 52h18v2H15z" fill="#819bd3"/><path d="M16 57h7v6h-7zM27 57h7v6h-7z" fill="#27396c"/><path d="M18 57h3v3h-3zM29 57h3v3h-3z" fill="#c4d8fa"/><path d="M15 61h8v5H12v-3h3zM27 61h7v2h3v3H27z" fill="#27396c"/><path d="M15 62h6v2h-7v1h-1v-2h2zM29 62h4v2h3v1h-7z" fill="#fff"/><path d="M16 64h5v1h-5zM29 64h4v1h-4z" fill="#8aa9d4"/></svg></div><div class="art-caption">SMALL STEPS. BIG ADVENTURE.</div></div>
+</section>
+<div class="arena-heading"><h2><span class="live-dot"></span>猜拳对决 · 登顶挑战</h2><p>JANKEN BATTLE / STAGE 01</p></div>
+<section class="arena-layout">
+ <aside class="roster" aria-label="双方选手">
+  <article class="panel character-panel player">
+   <div class="char-top"><span class="char-name">01 / 你 · 樱</span><span class="char-tag">PLAYER</span></div>
+   <div class="character-main"><div class="avatar-wrap"><svg class="pixel-character" viewBox="0 0 48 68" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="樱：蓝白像素少女" shape-rendering="crispEdges"><ellipse cx="24" cy="65" rx="17" ry="2" fill="#d5419b" opacity=".16"/><path d="M24 6h-3V3h-5V1h7v2h3v5h-2z" fill="#27396c"/><path d="M15 7h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z" fill="#27396c"/><path d="M16 9h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z" fill="#f8fcff"/><path d="M10 29h3v13h3v3h-4v-5h-2zM34 23h3v17h-3v6h-4v-3h2V31h2z" fill="#b4c6ef"/><path d="M15 17h19v18h-3v3H18v-3h-3z" fill="#f5f9ff"/><path d="M13 17h4v9h-4zM33 17h3v10h-3z" fill="#27396c"/><path d="M14 15h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z" fill="#f8fcff"/><path d="M15 19h3v6h-3zM20 16h2v6h-2zM26 15h2v5h-2zM31 17h2v5h-2z" fill="#a5b8e3"/><path d="M17 25h4v5h-4z" fill="#526bcb"/><path d="M28 26h5v2h-5zM26 27h3v2h-3z" fill="#27396c"/><path d="M21 33h7v2h-7z" fill="#3c4d8d"/><path d="M15 32h4v2h-4zM32 32h3v2h-3z" fill="#e8c4e9"/><path d="M17 38h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z" fill="#27396c"/><path d="M18 39h13v3h3v6H15v-6h3zM11 46h3v4h-3zM35 46h2v4h-2z" fill="#f8fcff"/><path d="M17 39h3v3h8v-3h3v5h-5v4h-4v-4h-5z" fill="#7b97d9"/><path d="M22 42h5v3h-5z" fill="#344d99"/><path d="M16 48h17v4h2v6H13v-6h3z" fill="#27396c"/><path d="M17 49h4v7h-5v-4h1zM24 49h4v7h-4zM31 50h1v4h2v2h-3z" fill="#e2edff"/><path d="M15 52h18v2H15z" fill="#819bd3"/><path d="M16 57h7v6h-7zM27 57h7v6h-7z" fill="#27396c"/><path d="M18 57h3v3h-3zM29 57h3v3h-3z" fill="#c4d8fa"/><path d="M15 61h8v5H12v-3h3zM27 61h7v2h3v3H27z" fill="#27396c"/><path d="M15 62h6v2h-7v1h-1v-2h2zM29 62h4v2h3v1h-7z" fill="#fff"/><path d="M16 64h5v1h-5zM29 64h4v1h-4z" fill="#8aa9d4"/></svg></div><div class="character-stats"><div class="stat-row"><span>当前台阶</span><strong class="position-number" id="userPosition">0</strong></div><span class="stat-goal">/ 46</span></div></div>
+   <p class="char-quote">「这一步，我会赢得很漂亮！」</p>
+   <div class="meter"><span id="userMeter" style="width:0%"></span></div><div class="mine-note" id="userMineNote">你的地雷：<strong>0 / 3 枚</strong></div>
+  </article>
+  <article class="panel character-panel rival">
+   <div class="char-top"><span class="char-name">02 / 对手 · 凛</span><span class="char-tag">CPU</span></div>
+   <div class="character-main"><div class="avatar-wrap"><svg class="pixel-character" viewBox="0 0 48 68" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="凛：蓝白像素少女" shape-rendering="crispEdges"><ellipse cx="24" cy="65" rx="17" ry="2" fill="#d5419b" opacity=".16"/><path d="M24 6h-3V3h-5V1h7v2h3v5h-2z" fill="#27396c"/><path d="M15 7h18v3h4v4h3v27h-3v7h-5v3H14v-3h-4v-6H7V25h2V14h3v-4h3z" fill="#27396c"/><path d="M16 9h16v3h4v4h2v22h-3v7h-4v3H15v-3h-3v-6H9V26h3V16h2v-4h2z" fill="#f8fcff"/><path d="M10 29h3v13h3v3h-4v-5h-2zM34 23h3v17h-3v6h-4v-3h2V31h2z" fill="#b4c6ef"/><path d="M15 17h19v18h-3v3H18v-3h-3z" fill="#f5f9ff"/><path d="M13 17h4v9h-4zM33 17h3v10h-3z" fill="#27396c"/><path d="M14 15h21v6h-4v-3h-3v6h-4v-3h-3v4h-4v-3h-3z" fill="#f8fcff"/><path d="M15 19h3v6h-3zM20 16h2v6h-2zM26 15h2v5h-2zM31 17h2v5h-2z" fill="#a5b8e3"/><path d="M17 25h5v6h-5zM28 25h5v6h-5z" fill="#4e67b9"/><path d="M18 25h2v2h-2zM29 25h2v2h-2z" fill="white"/><path d="M22 34h6v1h-6z" fill="#344d99"/><path d="M15 32h4v2h-4zM32 32h3v2h-3z" fill="#e8c4e9"/><path d="M17 38h15v3h3v4h3v6h-6v-3H16v3h-6v-6h3v-4h4z" fill="#27396c"/><path d="M18 39h13v3h3v6H15v-6h3zM11 46h3v4h-3zM35 46h2v4h-2z" fill="#f8fcff"/><path d="M17 39h3v3h8v-3h3v5h-5v4h-4v-4h-5z" fill="#7b97d9"/><path d="M22 42h5v3h-5z" fill="#344d99"/><path d="M16 48h17v4h2v6H13v-6h3z" fill="#27396c"/><path d="M17 49h4v7h-5v-4h1zM24 49h4v7h-4zM31 50h1v4h2v2h-3z" fill="#e2edff"/><path d="M15 52h18v2H15z" fill="#819bd3"/><path d="M16 57h7v6h-7zM27 57h7v6h-7z" fill="#27396c"/><path d="M18 57h3v3h-3zM29 57h3v3h-3z" fill="#c4d8fa"/><path d="M15 61h8v5H12v-3h3zM27 61h7v2h3v3H27z" fill="#27396c"/><path d="M15 62h6v2h-7v1h-1v-2h2zM29 62h4v2h3v1h-7z" fill="#fff"/><path d="M16 64h5v1h-5zM29 64h4v1h-4z" fill="#8aa9d4"/></svg></div><div class="character-stats"><div class="stat-row"><span>当前台阶</span><strong class="position-number" id="aiPosition">0</strong></div><span class="stat-goal">/ 46</span></div></div>
+   <p class="char-quote">「下一次猜拳，我可不会输哦。」</p>
+   <div class="meter"><span id="aiMeter" style="width:0%"></span></div><div class="mine-note" id="aiMineNote">对手的地雷：<strong>未知（0 / 3）</strong></div>
+  </article>
+ </aside>
+ <section class="board-column">
+  <div class="panel board-card">
+   <div class="board-head"><strong>登顶阶梯</strong><span>CLIMB TO THE TOP ↗ 46</span></div>
+   <div class="board-legend"><span class="legend-key"><i class="legend-dot"></i>01 樱 · 你</span><span>滚动查看全部台阶</span><span class="legend-key rin"><i class="legend-dot"></i>02 凛</span></div>
+   <div class="board-setup-guide" id="boardSetupGuide"><strong>第 1 步 · 点击台阶埋雷 ↓</strong><span>可选 1–45 级，选满 3 颗后自动开始猜拳。</span></div><div class="board-frame"><div class="ladder-scroll" id="ladder" aria-label="0至46级阶梯"></div></div>
+   <div class="ladder-hint" id="ladderHint">可选 1–45 级任意 3 个不同台阶；起点和终点不能埋雷</div>
+   <div class="minimap" id="minimap" aria-hidden="true"></div><div class="mini-labels"><span>START / 0</span><span>玩家位置</span><span>FINISH / 46</span></div>
+   <div class="hud"><div class="hud-chip">回合<strong id="roundCount">0</strong></div><div class="hud-chip">连续平局<strong id="drawCount">0 / 5</strong></div></div>
+  </div>
+ </section>
+ <section class="control-column" aria-label="回合操作">
+  <div class="panel play-card">
+   <div class="section-tab"><span>PLAY IN TWO STEPS</span><span>01 → 02</span></div>
+   <ol class="game-flow" aria-label="游戏流程">
+    <li class="flow-step is-active" id="flowSetup" aria-current="step"><span class="flow-number">01</span><span class="flow-copy">布置 3 颗地雷<small id="flowSetupProgress">已选 0 / 3</small></span></li>
+    <li class="flow-step is-upcoming" id="flowPlay"><span class="flow-number">02</span><span class="flow-copy">石头剪刀布<small id="flowPlayProgress">选满后开启</small></span></li>
+   </ol>
+   <div class="play-status"><div class="status-icon" id="statusIcon" aria-hidden="true"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><path d="M10 10H23V13H26V25H23V28H10V25H7V13H10Z" fill="#344a86"/><path d="M12 12H18V15H12ZM10 15H13V20H10Z" fill="#a9bfe7"/><path d="M17 10V6H23V3H27" fill="none" stroke="#344a86" stroke-width="2"/><path d="M25 2H29V6H25Z" fill="#ed65b5"/></svg></div><div class="status-text"><strong id="statusTitle">第 1 步：先埋 3 颗地雷</strong><span id="statusText">选择 1–45 级中 3 个不同台阶；双方同时各埋 3 枚。</span></div></div>
+   
+   <div class="mine-setup" id="mineSetup">
+    <div class="setup-progress"><strong>在阶梯上点击 3 个不同台阶</strong><span id="setupProgress" aria-live="polite">已选 0 / 3</span></div>
+    <div class="mine-slots" id="mineSlots"></div>
+    <p class="setup-next-note">选满 3 颗后同时埋雷，自动进入<span>石头剪刀布 →</span></p>
+   </div><div class="action-area"><div class="action-caption" id="actionCaption">准备阶段 · 选择埋雷位置</div><div class="hand-row" id="handRow"></div><div class="round-toast" id="roundToast" aria-live="polite"></div></div>
+  </div>
+  <div class="panel goal-card"><div class="goal-number">46</div><div class="goal-copy"><strong>终点只有一个。</strong><span>最先登顶的玩家，<br>赢得整场对决。</span></div></div>
+  <div class="side-decoration">READY, SET, JANKEN!</div>
+ </section>
+</section>
+<section class="bottom-grid">
+ <article class="panel rules-card"><div class="card-heading"><strong>游戏手册 / HOW TO PLAY</strong><span>按最新规则游玩</span></div><div class="rules-list">
+ <div class="rule"><b>01</b><span><strong>各自埋下 3 颗雷</strong><br>1–45 级均可选，每级一颗；起点和终点不能埋雷。重合位置公布后重新选择。</span></div>
+ <div class="rule"><b>02</b><span><strong>胜者前进</strong><br>拳获胜 +3 级，剪刀或布获胜 +6 级。最先登顶者赢得整场对局。</span></div>
+ <div class="rule"><b>03</b><span><strong>踩到对手的雷，可连锁后退</strong><br>踩到自己的雷时留在原地，雷位公开，地雷保留。踩到对手的雷时，该雷消耗，后退 10 级，最远退到起点。回退落点若还有雷，按同样规则结算。</span></div>
+ <div class="rule"><b>04</b><span><strong>连续平局 5 次</strong><br>距终点更近者赢得本轮，同级则先到者赢。仅本轮胜者选择 +3 或 +6，然后继续猜拳。<br>例外：双方均在起点且从未前进时，连续平局 5 次后继续猜拳，直到该轮分出胜负。</span></div>
+ </div></article>
+ <article class="panel log-card"><div class="card-heading"><strong>对局记录 / BATTLE LOG</strong><span id="logCount">0 条</span></div><ul class="log-list" id="logList"><li class="empty">准备好了？你的故事马上开始。</li></ul></article>
+</section>
+<footer class="footnote"><span>GLICO GAME CLUB / 地雷格力高</span><span class="footer-checkers" aria-hidden="true"></span><span>猜拳 · 躲雷 · 向上冲 ↗</span></footer>
+</main></div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-stamp" id="modalStamp">🌸</div><h2 id="modalTitle">标题</h2><p id="modalText"></p><div class="modal-actions" id="modalActions"></div></div></div>
+<script>
+(function(){
+"use strict";
+const goal=46,validMines=Array.from({length:45},(_,i)=>i+1),names={rock:"拳",scissors:"剪刀",paper:"布"},beats={rock:"scissors",scissors:"paper",paper:"rock"};
+const handIcons={"rock":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M9 10H13V8H18V9H23V11H26V15H28V24H25V28H11V25H8V21H5V16H9Z\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M11 13V18M16 11V18M21 12V18M10 19H22V23H15\" fill=\"none\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M12 25H24V28H12Z\" fill=\"#a9bfe7\"/></svg>","scissors":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M11 16L8 6H12L16 16H18L21 4H25L22 17H25L28 20V24L24 28H13L8 23V19H11Z\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M12 18H21V22H16L13 25M21 17V22\" fill=\"none\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M14 25H24V28H14Z\" fill=\"#a9bfe7\"/></svg>","paper":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M8 16V7H12V15H14V3H18V14H20V5H24V16H26V10H30V23L25 29H13L5 21V16Z\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M11 17L15 21M17 18V24M23 18V24\" fill=\"none\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M14 26H25V29H14Z\" fill=\"#a9bfe7\"/></svg>"};
+const uiIcons={"mine":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M10 10H23V13H26V25H23V28H10V25H7V13H10Z\" fill=\"#344a86\"/><path d=\"M12 12H18V15H12ZM10 15H13V20H10Z\" fill=\"#a9bfe7\"/><path d=\"M17 10V6H23V3H27\" fill=\"none\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M25 2H29V6H25Z\" fill=\"#ed65b5\"/></svg>","flag":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M8 4V29M9 5H25V17H9\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M10 6H15V11H10ZM20 6H24V11H20ZM15 11H20V16H15Z\" fill=\"#a9bfe7\"/><path d=\"M4 29H14\" stroke=\"#344a86\" stroke-width=\"2\"/></svg>","award":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M9 4H24V15L20 21H13L9 15ZM9 7H4V15H10M24 7H29V15H23M16 21V27M10 29H23\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/><path d=\"M14 7H20V15H14Z\" fill=\"#a9bfe7\"/></svg>","balance":"<svg viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" shape-rendering=\"crispEdges\"><path d=\"M16 4V28M5 11H27M7 12L3 21H11ZM25 12L21 21H29ZM10 29H22\" fill=\"#f8fbff\" stroke=\"#344a86\" stroke-width=\"2\"/></svg>"};
+const state={phase:"setup",user:0,ai:0,userMines:[],aiMines:[],revealedAiMines:[],mineNeeded:3,draws:0,tieWinner:null,tieReason:"",rounds:0,mineHits:0,log:[],arrival:{user:{0:0},ai:{0:0}},clock:0,sound:false,audio:null};
+const el=id=>document.getElementById(id),ladder=el("ladder"),labels={user:"你",ai:"凛"};
+function addLog(message){state.log.unshift(message);state.log=state.log.slice(0,12);el("logList").innerHTML=state.log.length?state.log.map((x,i)=>'<li><span class="time">'+String(state.log.length-i).padStart(2,"0")+'</span>'+x+'</li>').join(""):'<li class="empty">故事即将开始……</li>';el("logCount").textContent=state.log.length+" 条"}
+function renderBoard(){
+ ladder.innerHTML="";
+ for(let level=goal;level>=0;level--){
+  const row=document.createElement("div");row.className="rung";row.dataset.level=String(level);
+  if(level===goal)row.classList.add("top-rung");if(level===0)row.classList.add("start-rung");
+  const selectable=state.phase==="setup"&&level>0&&level<goal&&!state.userMines.includes(level);
+  if(selectable){row.classList.add("rung-selectable");row.setAttribute("role","button");row.setAttribute("tabindex","0");row.setAttribute("aria-label",level+"级，选择埋雷");row.addEventListener("click",()=>chooseMine(level));row.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();chooseMine(level)}})}else row.setAttribute("aria-label",level+"级");
+  row.innerHTML='<span class="rung-num">'+(level===46?'⛩':level===0?'起':level)+'</span><span class="rung-center"></span><span class="rung-num">'+(level===46?'顶':level===0?'点':'')+'</span>';
+  const ownMarker=state.userMines.includes(level);
+  if(ownMarker||(state.aiMines.includes(level)&&state.revealedAiMines.includes(level))){const m=document.createElement("span");m.className="rung-mark";m.textContent="💣";m.title=ownMarker?"你的地雷":"对手已公开的地雷";row.appendChild(m)}
+  if(state.user===level){const t=document.createElement("span");t.className="token user-token";t.textContent="🌸";t.title="你在 "+level+" 级";row.appendChild(t)}
+  if(state.ai===level){const t=document.createElement("span");t.className="token ai-token";t.textContent="🦊";t.title="凛在 "+level+" 级";row.appendChild(t)}
+  ladder.appendChild(row)
+ }
+ const mini=el("minimap");mini.innerHTML="";for(let i=0;i<=goal;i++){const c=document.createElement("span");c.className="mini-cell"+(i===state.user?" user":"")+(i===state.ai?" ai":"");c.title=i+"级";mini.appendChild(c)}
+ el("ladderHint").textContent=state.phase==="setup"?"可选 1–45 级任意 3 个不同台阶；起点 0 和终点 46 不能埋雷":"踩到自己的雷会公开雷位，雷仍保留。踩到对手的雷会消耗该雷并后退 10 级，落点可继续触雷。";
+ requestAnimationFrame(()=>{const mid=Math.round((state.user+state.ai)/2),target=ladder.querySelector('[data-level="'+mid+'"]');if(target)ladder.scrollTop=Math.max(0,target.offsetTop-ladder.clientHeight/2+target.clientHeight/2)});
+}
+function render(){
+ el("userPosition").textContent=state.user;el("aiPosition").textContent=state.ai;el("userMeter").style.width=(state.user/goal*100)+"%";el("aiMeter").style.width=(state.ai/goal*100)+"%";el("roundCount").textContent=state.rounds;el("drawCount").textContent=state.draws>=5&&atUntouchedStart()?state.draws+" 次":state.draws+" / 5";
+ el("userMineNote").textContent=(state.phase==="setup"?"你的雷位：已选 ":"你的地雷：剩余 ")+state.userMines.length+" 颗";el("aiMineNote").textContent=state.phase==="setup"?"对手正在秘密选择地雷":"对手的地雷：剩余 "+state.aiMines.length+" 颗";
+ const setting=state.phase==="setup";
+ el("flowSetup").className="flow-step "+(setting?"is-active":"is-complete");
+ el("flowSetup").setAttribute("aria-current",setting?"step":"false");
+ el("flowPlay").className="flow-step "+(setting?"is-upcoming":state.phase==="ended"?"is-complete":"is-active");
+ el("flowPlay").setAttribute("aria-current",!setting&&state.phase!=="ended"?"step":"false");
+ el("flowSetupProgress").textContent=setting?"已选 "+state.userMines.length+" / 3":"地雷已布置";
+ el("flowPlayProgress").textContent=setting?"选满后开启":state.phase==="ended"?"本局结束":"进行中";
+ el("boardSetupGuide").hidden=!setting;el("mineSetup").hidden=!setting;
+ el("setupProgress").textContent="已选 "+state.userMines.length+" / 3";
+ el("mineSlots").innerHTML=Array.from({length:3},(_,i)=>{
+  const level=state.userMines[i],filled=level!==undefined;
+  return '<span class="mine-slot'+(filled?' is-filled':'')+'">'+uiIcons.mine+'<strong>'+(filled?level+' 级':'第 '+(i+1)+' 颗')+'</strong><small>'+(filled?'已选择':'等待点选')+'</small></span>';
+ }).join("");
+ const row=el("handRow");row.innerHTML="";row.hidden=state.phase!=="play"&&state.phase!=="tieChoice";
+ if(state.phase==="play"){
+  el("statusIcon").innerHTML=handIcons.rock;el("statusTitle").textContent=state.draws>=5&&atUntouchedStart()?"起点加赛：继续猜拳！":"第 2 步：石头剪刀布！";el("statusText").textContent=state.draws>=5&&atUntouchedStart()?"双方均在起始格且从未前进，本轮继续猜拳，直到分出胜负。":"双方地雷已布置完毕。喊出「格・力・高！」并选择手势，凛会同时出拳。";el("actionCaption").textContent="现在可以出拳 · 仅获胜者前进";
+  ["rock","scissors","paper"].forEach(k=>{const b=document.createElement("button");b.className="hand-btn";b.type="button";b.innerHTML='<span class="hand-emoji">'+handIcons[k]+'</span><strong>'+names[k]+'</strong><small>胜出前进 '+(k==="rock"?3:6)+' 级</small>';b.addEventListener("click",()=>playRound(k));row.appendChild(b)});
+ }else if(state.phase==="tieChoice"){
+  el("statusIcon").innerHTML=uiIcons.award;el("statusTitle").textContent="你赢得本轮胜利！";el("statusText").textContent=state.tieReason+" 选择前进 3 或 6 级后继续猜拳；地雷仍然有效。";el("actionCaption").textContent="连续平局 5 次 · 本轮仅胜者前进";
+  [3,6].forEach(n=>{const b=document.createElement("button");b.className="advance-btn";b.type="button";b.innerHTML="<em>＋"+n+"</em> 前进 "+n+" 级";b.addEventListener("click",()=>resolveTiebreak(n));row.appendChild(b)});
+ }else{
+  el("statusIcon").innerHTML=setting?uiIcons.mine:state.phase==="adjudication"?uiIcons.balance:uiIcons.flag;
+  el("statusTitle").textContent=setting?"第 1 步：先埋 3 颗地雷":state.phase==="adjudication"?"本轮待裁定":"本局已结束";
+  el("statusText").textContent=setting?"在阶梯上点击 1–45 级中的 3 个不同台阶。双方各埋 3 颗；位置重合时重新选择，完成后自动开始猜拳。":state.phase==="adjudication"?"双方在同一级且同时到达。规则尚未定义本轮胜者，本轮暂停待裁定。":"查看对局记录，或重新开始一局。";
+  el("actionCaption").textContent=setting?"请在阶梯上操作 · 还需选择 "+(3-state.userMines.length)+" 颗":state.phase==="adjudication"?"规则未定义的情形 · 请由主持人裁定":"最终结果";
+ }
+ el("roundToast").textContent="";if(setting)el("roundToast").textContent="选满 3 颗 → 双方同时埋雷 → 自动进入猜拳";
+ if(state.phase==="ended"||state.phase==="adjudication"){const b=document.createElement("button");b.className="primary-btn";b.type="button";b.textContent="重新开始";b.addEventListener("click",resetGame);el("roundToast").appendChild(b)}
+ el("soundToggle").textContent=state.sound?"♫ 音效：开":"♫ 音效：关";el("soundToggle").setAttribute("aria-pressed",String(state.sound));renderBoard();
+}
+function chooseMine(level){
+ if(state.phase!=="setup"||level<1||level>=goal||state.userMines.length>=3||state.userMines.includes(level))return;
+ state.userMines.push(level);
+ if(state.userMines.length<3){render();el("roundToast").textContent="已选 "+state.userMines.length+" / 3 颗；再选 "+(3-state.userMines.length)+" 个不同台阶。";return}
+ completeMinePlacement();
+}
+function chooseRandomMines(count,existing){
+ const pool=validMines.filter(level=>!existing.includes(level));
+ for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+ return pool.slice(0,count);
+}
+function completeMinePlacement(){
+ const aiMissing=3-state.aiMines.length;
+ state.aiMines.push(...chooseRandomMines(aiMissing,state.aiMines));
+ const clashes=state.userMines.filter(level=>state.aiMines.includes(level));
+ if(clashes.length){
+  state.userMines=state.userMines.filter(level=>!clashes.includes(level));
+  state.aiMines=state.aiMines.filter(level=>!clashes.includes(level));
+  state.mineNeeded=3-state.userMines.length;
+  state.phase="setup";render();
+  const list=clashes.join("、");
+  addLog("双方选择在 "+list+" 级的地雷重合，公布后重新选择。");
+  showModal("💥","地雷位置重合！","双方同时选择的 "+list+" 级已公布。请重新选择 "+clashes.length+" 颗地雷；其他已选位置保留。",[{text:"重新选择",primary:true,action:closeModal}]);
+  return;
+ }
+ state.mineNeeded=0;state.phase="play";render();
+ addLog("双方同时各埋下 3 颗地雷，对局开始。");
+ el("roundToast").textContent="六颗地雷已同时布置，准备猜拳！";
+ playSound(520,.07);
+}
+function randomHand(){return ["rock","scissors","paper"][Math.floor(Math.random()*3)]}
+function rememberArrival(who,level,time){state.arrival[who][level]=time}
+function applyMine(who,events){
+ const own=who==="user"?state.userMines:state.aiMines,enemy=who==="user"?state.aiMines:state.userMines;
+ while(true){
+  const pos=state[who];
+  if(own.includes(pos)){
+   if(who==="ai"&&!state.revealedAiMines.includes(pos))state.revealedAiMines.push(pos);
+   state.mineHits++;events.push(labels[who]+"踩到自己在 "+pos+" 级的地雷，留在原地。雷位已公开，地雷保留。");break;
+  }
+  if(enemy.includes(pos)){
+   enemy.splice(enemy.indexOf(pos),1);
+   state.mineHits++;state[who]=Math.max(0,pos-10);events.push(labels[who]+"踩中对手在 "+pos+" 级的地雷，退到 "+state[who]+" 级。该雷已消耗。");rememberArrival(who,state[who],state.clock);continue;
+  }
+  break;
+ }
+}
+function playRound(userHand){
+ if(state.phase!=="play")return;
+ const aiHand=randomHand();state.rounds++;const result=userHand===aiHand?"draw":beats[userHand]===aiHand?"user":"ai";
+ if(result==="draw"){
+  state.draws++;playSound(250,.08);
+  addLog("第 "+state.rounds+" 回合：双方都出"+names[userHand]+"，连续平局 "+state.draws+" 次。");
+  if(state.draws>=5){resolveDrawStreak()}else{render();el("roundToast").textContent="双方都是"+names[userHand]+"！连续平局 "+state.draws+" / 5 次，不前进。"}
+  return;
+ }
+ state.draws=0;
+ const winner=result,winningHand=winner==="user"?userHand:aiHand,move=winningHand==="rock"?3:6,old=state[winner],next=Math.min(goal,old+move);state[winner]=next;state.clock++;rememberArrival(winner,next,state.clock);const events=[];applyMine(winner,events);
+ let message=(winner==="user"?"你":"凛")+"出"+names[winningHand]+"获胜，前进 "+move+" 级。"+(events.length?" "+events.join(" "):"");
+ const winnerAtTop=state.user===goal?"user":state.ai===goal?"ai":null;render();if(winnerAtTop){finish(winnerAtTop,message);return}el("roundToast").textContent=message;addLog("第 "+state.rounds+" 回合："+message);playSound(winner==="user"?720:390,.11)
+}
+function atUntouchedStart(){
+ // The clock advances before each forward move, including moves followed by a mine retreat.
+ return state.user===0&&state.ai===0&&state.clock===0;
+}
+function resolveDrawStreak(){
+ if(atUntouchedStart()){
+  state.phase="play";state.tieWinner=null;state.tieReason="";render();
+  el("roundToast").textContent="起点例外：已连续平局 "+state.draws+" 次，双方均未前进过。继续猜拳，直到本轮分出胜负。";
+  if(state.draws===5)addLog("起点例外：双方均在起始格且从未前进，连续平局 5 次后继续猜拳，直到本轮分出胜负。");
+  return;
+ }
+ let winner=null,reason="";
+ if(state.user!==state.ai){
+  winner=state.user>state.ai?"user":"ai";
+  reason=labels[winner]+"在 "+state[winner]+" 级，距离终点更近，赢得本轮胜利。";
+ }else{
+  const userTime=state.arrival.user[state.user],aiTime=state.arrival.ai[state.ai];
+  if(userTime!==undefined&&aiTime!==undefined&&userTime!==aiTime){
+   winner=userTime<aiTime?"user":"ai";
+   reason="双方同在 "+state.user+" 级，"+labels[winner]+"先到达该位置，赢得本轮胜利。";
+  }
+ }
+ if(winner===null){
+  state.tieWinner=null;state.tieReason="";state.phase="adjudication";render();
+  addLog("连续平局 5 次：双方同级且同时到达，本轮待裁定。");
+  showModal("⚖️","本轮待裁定","双方在同一级且同时到达。现有规则没有定义此时的本轮胜者，当前对局暂停待裁定。",[{text:"知道了",primary:true,action:closeModal}]);
+  return;
+ }
+ state.tieWinner=winner;state.tieReason=reason;state.phase="tieChoice";
+ addLog("连续平局 5 次："+reason);
+ if(winner==="ai"){resolveTiebreak(Math.random()<.5?3:6);return}
+ render();el("roundToast").textContent="本轮已判胜，请选择前进 3 级或 6 级。";
+}
+function resolveTiebreak(move){
+ if(state.phase!=="tieChoice"||!["user","ai"].includes(state.tieWinner)||![3,6].includes(move))return;
+ const winner=state.tieWinner,reason=state.tieReason;
+ state[winner]=Math.min(goal,state[winner]+move);state.clock++;
+ rememberArrival(winner,state[winner],state.clock);
+ const events=[];applyMine(winner,events);
+ state.draws=0;state.tieWinner=null;state.tieReason="";state.phase="play";
+ const message=reason+" "+labels[winner]+"选择前进 "+move+" 级。"+(events.length?" "+events.join(" "):"");
+ addLog("第 "+state.rounds+" 回合："+message);
+ if(state[winner]===goal){finish(winner,message);return}
+ render();el("roundToast").textContent=message+" 继续猜拳。";
+ playSound(winner==="user"?720:390,.11);
+}
+function finish(winner,detail){
+ state.phase="ended";render();const won=winner==="user";showModal(won?"🌸":"⛩",won?"你登顶啦！":"凛先一步抵达山顶",detail+(won?"　46 级的山顶被你拿下了！":"　这次由凛获胜。再来一局吧。"),[{text:"再玩一局",primary:true,action:()=>{closeModal();resetGame()}}]);addLog((won?"你":"凛")+"率先登顶，获得胜利。");playSound(won?880:180,.2)
+}
+function showModal(stamp,title,text,actions){el("modalStamp").textContent=stamp;el("modalTitle").textContent=title;el("modalText").textContent=text;const box=el("modalActions");box.innerHTML="";actions.forEach(a=>{const b=document.createElement("button");b.type="button";b.className=a.primary?"primary-btn":"secondary-btn";b.textContent=a.text;b.addEventListener("click",a.action);box.appendChild(b)});el("modalBackdrop").classList.add("show")}
+function closeModal(){el("modalBackdrop").classList.remove("show")}
+function resetGame(){closeModal();state.phase="setup";state.user=0;state.ai=0;state.userMines=[];state.aiMines=[];state.revealedAiMines=[];state.mineNeeded=3;state.draws=0;state.tieWinner=null;state.tieReason="";state.rounds=0;state.mineHits=0;state.log=[];state.arrival={user:{0:0},ai:{0:0}};state.clock=0;el("logList").innerHTML='<li class="empty">故事即将开始……</li>';render()}
+function playSound(freq,duration){if(!state.sound)return;try{if(!state.audio)state.audio=new(window.AudioContext||window.webkitAudioContext)();const o=state.audio.createOscillator(),g=state.audio.createGain();o.type="sine";o.frequency.value=freq;g.gain.setValueAtTime(.045,state.audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,state.audio.currentTime+duration);o.connect(g);g.connect(state.audio.destination);o.start();o.stop(state.audio.currentTime+duration)}catch(e){}}
+el("soundToggle").addEventListener("click",()=>{state.sound=!state.sound;render();if(state.sound)playSound(600,.08)});
+render();
+})();
+</script></body></html>
